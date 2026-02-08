@@ -7,7 +7,10 @@ const connectDB = require("./config/db");
 const mediaRoutes = require("./routes/mediaRoutes");
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "*", // allow all origins for simplicity
+  methods: ["GET", "POST"],
+}));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
