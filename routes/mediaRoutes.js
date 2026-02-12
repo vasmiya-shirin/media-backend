@@ -6,8 +6,12 @@ const mediaController = require("../controllers/mediaController");
 //multer config
 const storage = multer.diskStorage({
   destination: "uploads/",
-  filename: (_, file, cb) => cb(null, Date.now() + "_" + file.originalname),
+  filename: (req, file, cb) => {
+    const safeName = file.originalname.replace(/\s+/g, "_");
+    cb(null, Date.now() + "_" + safeName);
+  },
 });
+
 
 const upload = multer({ storage });
 

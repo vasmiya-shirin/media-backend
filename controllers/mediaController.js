@@ -6,7 +6,7 @@ exports.uploadMedia = async (req, res) => {
     const media = await Media.create({
       filename: req.file.filename,
       type: req.file.mimetype,
-      url: `/upload/${req.file.filename}`,
+      url: `/uploads/${req.file.filename}`,
     });
     res.status(201).json(media);
   } catch (error) {

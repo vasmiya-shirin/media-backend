@@ -12,7 +12,8 @@ app.use(cors({
   methods: ["GET", "POST"],
 }));
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
+const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // DB Connection
 connectDB();
