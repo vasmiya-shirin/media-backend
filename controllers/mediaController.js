@@ -1,20 +1,22 @@
 const Media = require("../models/media");
 
-//upload media
+// Upload media
 exports.uploadMedia = async (req, res) => {
   try {
     const media = await Media.create({
-      filename: req.file.filename,
+      filename: req.file.originalname,
       type: req.file.mimetype,
-      url: `/uploads/${req.file.filename}`,
+      url: req.file.path, // Cloudinary URL
     });
+
     res.status(201).json(media);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Upload failed" });
   }
 };
 
-//Get all media
+// Get all media
 exports.getAllMedia = async (req, res) => {
   try {
     const media = await Media.find().sort({ createdAt: -1 });
@@ -23,3 +25,4 @@ exports.getAllMedia = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch media" });
   }
 };
+
